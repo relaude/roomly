@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light"><title>Roomly · Your rental, in one place</title>
+  <link rel="stylesheet" href="styles.css"><script src="app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <section class="story" aria-label="About your rental portal">
+      <a class="brand" href="./index.html" aria-label="Roomly home"><span class="brand-icon">⌂</span> roomly<span class="brand-period">.</span></a>
+      <div class="story-copy"><span class="eyebrow">A LITTLE MORE PEACE OF MIND</span><h1>Your space.<br>Your home.<br><span>All in one place.</span></h1><p>Less keeping track.<br>More feeling at home.</p></div>
+      <div class="illustration" aria-hidden="true">
+        <svg viewBox="0 0 600 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="451" cy="86" r="48" fill="#C0C8FF" opacity=".22"/><path d="M45 291H565" stroke="#A1ACF7" stroke-width="2"/>
+          <path d="M157 291V112L310 47L461 112V291" fill="#E3E7FF"/><path d="M136 117L310 41L483 117" stroke="#B0BCFF" stroke-width="13" stroke-linecap="round"/>
+          <path d="M310 49V291H461V112L310 49Z" fill="#C9D2FF"/>
+          <rect x="190" y="143" width="82" height="90" rx="4" fill="#6979C8"/><rect x="200" y="153" width="62" height="70" rx="2" fill="#FFDF9C"/>
+          <path d="M231 153V223M200 188H262" stroke="#E6BB77" stroke-width="4"/>
+          <path d="M346 291V170C346 151 361 136 380 136C399 136 414 151 414 170V291" fill="#6979C8"/><circle cx="397" cy="222" r="4" fill="#FFE3AA"/>
+          <rect x="284" y="245" width="34" height="25" rx="3" fill="#F6F7FF"/><path d="M292 252H310M292 260H304" stroke="#A0AADF" stroke-width="3"/>
+          <path d="M96 291V221M96 247C62 250 61 209 96 185C129 210 131 248 96 247Z" fill="#879BDD"/><path d="M96 291V222" stroke="#C0CAFF" stroke-width="4"/>
+          <path d="M510 291V241M510 263C483 263 482 231 510 210C539 231 539 263 510 263Z" fill="#879BDD"/><path d="M510 291V242" stroke="#C0CAFF" stroke-width="4"/>
+          <path d="M341 292H420L433 307H329L341 292Z" fill="#A8B6F0"/>
+          <path d="M68 106H112M90 84V128" stroke="#A8B6FF" stroke-width="2" opacity=".6"/><circle cx="519" cy="168" r="4" fill="#D7DDFF"/>
+        </svg>
+        <div class="floating-note"><span class="note-check">✓</span><div>A little more organized.<small>A lot more at home.</small></div></div>
+      </div>
+      <footer class="story-footer"><span>MADE FOR EVERYDAY LIVING</span><span>Two rooms. One simple place.</span></footer>
+    </section>
+    <section class="access" aria-label="Sign in">
+      <div class="topline"><span>YOUR TENANT PORTAL</span><span class="prototype-badge">Interactive prototype</span></div>
+      <div id="login-view" class="login-content">
+        <div class="welcome-icon" aria-hidden="true">⌂</div><p class="overline">GOOD TO HAVE YOU HERE</p><h2>Welcome home.</h2><p class="intro">Your rent, bills, and rental details.<br>One less thing to keep track of.</p>
+        <div class="provider-buttons">
+          <button class="provider" data-provider="Google"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.23c0-.71-.06-1.39-.18-2.05H12v3.88h5.38a4.6 4.6 0 0 1-2 3.02v2.51h3.24c1.9-1.75 2.98-4.33 2.98-7.36Z"/><path fill="#34A853" d="M12 22c2.7 0 4.97-.9 6.62-2.41l-3.24-2.51c-.9.6-2.05.96-3.38.96-2.6 0-4.8-1.75-5.58-4.11H3.07v2.59A10 10 0 0 0 12 22Z"/><path fill="#FBBC05" d="M6.42 13.93a6 6 0 0 1 0-3.86V7.48H3.07a10 10 0 0 0 0 9.04l3.35-2.59Z"/><path fill="#EA4335" d="M12 5.96c1.47 0 2.79.51 3.82 1.51l2.87-2.87A9.63 9.63 0 0 0 12 2a10 10 0 0 0-8.93 5.48l3.35 2.59A6 6 0 0 1 12 5.96Z"/></svg>Continue with Google</button>
+          <button class="provider facebook" data-provider="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M24 12a12 12 0 1 0-13.88 11.85v-8.38H7.08V12h3.04V9.36c0-3 1.79-4.67 4.53-4.67 1.31 0 2.68.23 2.68.23v2.95h-1.51c-1.49 0-1.96.92-1.96 1.87V12h3.33l-.53 3.47h-2.8v8.38A12 12 0 0 0 24 12Z"/></svg>Continue with Facebook</button>
+        </div>
+        <div class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><p>No new password to remember.<br>Your Google or Facebook password stays private.</p></div>
+        <div class="first-time"><span class="info-icon">i</span><p><strong>First time here?</strong>Your landlord will approve your account and connect you to your room after you sign in.</p></div>
+        <p class="help-line">Need a hand? <button class="text-button" id="help-button">How sign-in works</button></p>
+      </div>
+      <div id="result-view" class="login-content result" hidden aria-live="polite"></div>
+      <footer class="access-footer"><span>Private by design. Simple by choice.</span><button class="text-button" id="privacy-button">Privacy</button></footer>
+    </section>
+  </main>
+  <dialog id="demo-dialog" aria-labelledby="demo-title"><form method="dialog"><button class="close" aria-label="Close preview">×</button></form><span class="dialog-tag">PROTOTYPE PREVIEW</span><h2 id="demo-title">Explore the sign-in flow</h2><p id="demo-description">No real account is used. Choose a sample account to see what happens after sign-in.</p><div class="demo-options"><button data-scenario="pending"><span class="scenario-icon">◷</span><span><strong>New tenant</strong><small>Waiting for landlord approval</small></span><span>›</span></button><button data-scenario="tenant"><span class="scenario-icon">⌂</span><span><strong>Approved tenant</strong><small>Connected to Room 1</small></span><span>›</span></button><button data-scenario="landlord"><span class="scenario-icon">▦</span><span><strong>Landlord</strong><small>Manage both rental units</small></span><span>›</span></button></div><p class="dialog-footnote">Demo screens only. Google, Facebook, and Supabase are not connected.</p></dialog>
+  <dialog id="info-dialog" aria-labelledby="info-title"><form method="dialog"><button class="close" aria-label="Close information">×</button></form><h2 id="info-title"></h2><div id="info-copy"></div><button class="primary" id="info-done">Got it</button></dialog>
+</body>
+</html>
