@@ -1,0 +1,52 @@
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { describe, expect, it, vi } from 'vitest'
+import App from './App'
+
+describe('Roomly form workflows', () => {
+  it('shows accessible errors, focuses the first invalid field, and accepts valid details', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.click(screen.getByRole('button', { name: 'Open the demo portal' }))
+    await user.click(screen.getByRole('button', { name: 'Save demo profile' }))
+    const contact = screen.getByRole('textbox', { name: 'Contact name' })
+    await waitFor(() => expect(contact).toHaveAttribute('aria-invalid', 'true'))
+    expect(contact).toHaveAccessibleDescription('Enter at least 2 characters.')
+    expect(contact).toHaveFocus()
+    expect(screen.getByRole('alert')).toHaveTextContent('Please check')
+    await user.type(contact, 'Jamie Morgan')
+    await user.type(screen.getByRole('textbox', { name: 'Relationship' }), 'Sibling')
+    await user.type(screen.getByRole('textbox', { name: 'Contact number' }), '+63 917 555 0102')
+    await user.click(screen.getByRole('button', { name: 'Save demo profile' }))
+    expect(await screen.findByText(/Profile validated for this demo session/)).toBeInTheDocument()
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
+  it('supports cash without claiming to confirm funds and resets later edits', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.click(screen.getByRole('button', { name: 'Open the demo portal' }))
+    await user.click(screen.getByRole('button', { name: 'Submit a payment' }))
+    await user.type(screen.getByRole('textbox', { name: 'Amount paid' }), '2800.50')
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Payment method' }), 'cash')
+    await user.click(screen.getByRole('button', { name: 'Submit demo payment' }))
+    expect(await screen.findByText(/2,800.50 sample units validated/)).toHaveTextContent('balance is unchanged')
+    await user.type(screen.getByLabelText('Note to landlord'), 'Changed')
+    expect(screen.queryByText(/2,800.50 sample units validated/)).not.toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Reset' }))
+    expect(screen.getByLabelText('Note to landlord')).toHaveValue('')
+  })
+  it('lets users keep unsaved edits when switching forms', async () => {
+    const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false)
+    const user = userEvent.setup()
+    render(<App />)
+    await user.click(screen.getByRole('button', { name: 'Open the demo portal' }))
+    await user.type(screen.getByLabelText('Preferred name'), ' edited')
+    await user.click(screen.getByRole('button', { name: 'Room settings' }))
+    expect(confirm).toHaveBeenCalledOnce()
+    expect(screen.getByLabelText('Preferred name')).toHaveValue('Alex edited')
+    confirm.mockReturnValue(true)
+    await user.click(screen.getByRole('button', { name: 'Room settings' }))
+    expect(screen.getByRole('textbox', { name: 'Monthly rent' })).toHaveValue('5000')
+    confirm.mockRestore()
+  })
+})
