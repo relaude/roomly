@@ -1,0 +1,74 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - roomly-app/**
+      - azure-pipelines.yml
+
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - roomly-app/**
+      - azure-pipelines.yml
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: Validate
+  displayName: Validate and build Roomly
+  jobs:
+  - job: Build
+    steps:
+    - checkout: self
+
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '22.x'
+        checkLatest: true
+
+    - script: |
+        set -e
+        npm ci
+        npm run lint
+        npm test
+        npm run build
+      workingDirectory: roomly-app
+      displayName: Install, lint, test, and build
+
+    - publish: roomly-app/dist
+      artifact: web
+      displayName: Publish website artifact
+
+- stage: DeployDemo
+  displayName: Deploy Roomly demo
+  dependsOn: Validate
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  variables:
+  - group: roomly-demo
+
+  jobs:
+  - deployment: DeployWebsite
+    environment: roomly-demo
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: web
+
+          - task: AzureStaticWebApp@0
+            displayName: Deploy website to Azure
+            inputs:
+              cwd: '$(Pipeline.Workspace)'
+              app_location: 'web'
+              output_location: ''
+              api_location: ''
+              skip_app_build: true
+              skip_api_build: true
+              azure_static_web_apps_api_token: $(SWA_DEPLOYMENT_TOKEN)
