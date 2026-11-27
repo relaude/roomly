@@ -1,2 +1,8 @@
 # Microsoft Word temporary lock files
 ~$*.docx
+
+# Codex temporary files and folders
+.codex-tmp*
+.codex-temp*
+.codex/tmp/
+.codex/temp/
